@@ -1,0 +1,1 @@
+CSL pour la littérature française, basé sur [celui](http://www.zotero.org/styles/universite-de-geneve-departement-de-langue-et-de-litterature-francaises-modernes) établi par Benjamin Paul pour le département de français de l'Université de Genève.
