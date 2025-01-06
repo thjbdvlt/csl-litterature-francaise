@@ -5,6 +5,8 @@
 
     <!-- Nom et identifiant -->
     <title>Littérature française</title>
+    <title-short>litterature_francaise</title-short>
+    <id>https://github.com/thjbdvlt/csl-litterature-francaise</id>
     <link href="https://github.com/thjbdvlt/csl-litterature-francaise" rel="self"/>
 
     <!-- Description -->
@@ -28,7 +30,7 @@
     </author>
 
     <!-- Date de mise à jour -->
-    <updated>2024-11-21</updated>
+    <updated>2024-11-21T23:31:02+00:00</updated>
 
     <!-- Catégorie de style -->
     <category citation-format="note"/>
@@ -59,7 +61,6 @@
 
       <!-- Déjà cité -->
       <term name="cited">op. cit.</term>
-      <term name="ibidem">ibidem</term>
       <term name="ibid">ibid.</term>
 
       <!-- Dans un autre ouvrage -->
@@ -138,7 +139,7 @@
           <name and="text" delimiter-precedes-last="never" name-as-sort-order="all">
             <name-part name="family" text-case="capitalize-first" font-variant="small-caps"/>
           </name>
-          <label form="short" plural="never"/>
+          <label form="short" plural="false"/>
         </names>
       </else-if>
     </choose>
@@ -176,7 +177,7 @@
               text-case="capitalize-first"
               font-variant="small-caps"/>
           </name>
-          <label form="short" plural="never"/>
+          <label form="short" plural="false"/>
         </names>
       </else-if>
 
@@ -200,7 +201,7 @@
               text-case="capitalize-first"
               font-variant="small-caps"/>
           </name>
-          <label plural="never"/>
+          <label plural="false"/>
         </names>
       </if>
     </choose>
@@ -209,7 +210,7 @@
   <!-- Traducteur·rice -->
   <macro name="translator">
     <names variable="translator">
-      <label form="short" plural="never"/>
+      <label form="short" plural="false"/>
       <name
         and="text"
         delimiter-precedes-last="never"
@@ -377,7 +378,7 @@
               <choose>
                 <if match="any" variable="page">
                   <group>
-                    <label plural="never" variable="page" form="short"/>
+                    <label plural="false" variable="page" form="short"/>
                     <text variable="page"/>
                   </group>
                 </if>
@@ -400,7 +401,7 @@
           <choose>
             <if match="any" variable="locator">
               <group>
-                <label plural="never" variable="page" form="short"/>
+                <label plural="false" variable="page" form="short"/>
                 <text variable="locator"/>
               </group>
             </if>
@@ -408,7 +409,7 @@
               <choose>
                 <if match="any" variable="page">
                   <group>
-                    <label plural="never" variable="page" form="short"/>
+                    <label plural="false" variable="page" form="short"/>
                     <text variable="page"/>
                   </group>
                 </if>
@@ -429,7 +430,7 @@
             <!-- Page -->
             <if variable="locator" match="any">
               <group>
-                <label plural="never" variable="page" form="short"/>
+                <label plural="false" variable="page" form="short"/>
                 <text variable="locator"/>
               </group>
             </if>
@@ -438,7 +439,7 @@
               <choose>
                 <if match="any" variable="page">
                   <group>
-                    <label plural="never" variable="page" form="short"/>
+                    <label plural="false" variable="page" form="short"/>
                     <text variable="page"/>
                   </group>
                 </if>
@@ -458,12 +459,7 @@
       <!-- Objets indépendants -->
       <if type="bill book graphic legal_case legislation manuscript motion_picture paper-conference report software song thesis" match="any">
         <group delimiter=", ">
-          <date variable="issued">
-            <!-- Année de publication -->
-            <date-part name="year"/>
-            <!-- Année de publication originale entre crochets (seulement dans la bibliographie)-->
-            <text macro="original-date"/>
-          </date>
+          <text macro="date"/>
           <choose>
             <!-- Pas de volume pour les livres -->
             <if type="book" match="all" variable="container-title"/>
@@ -481,18 +477,13 @@
       <!-- Les objet contenus (1): chapitre, entrée de dictionnaire ou encyclopédie -->
       <else-if type="chapter entry-dictionary entry-encyclopedia" match="any">
         <group delimiter=", ">
-          <date variable="issued">
-            <!-- Année de publication -->
-            <date-part name="year"/>
-            <!-- Année de publication originale entre crochets (seulement dans la bibliographie)-->
-            <text macro="original-date"/>
-          </date>
+          <text macro="date"/>
           <group>
             <text term="opus" form="short"/>
             <text variable="volume"/>
           </group>
           <group>
-            <label plural="never" variable="page" form="short"/>
+            <label plural="false" variable="page" form="short"/>
             <text variable="page"/>
           </group>
         </group>
@@ -501,14 +492,9 @@
       <!-- Les objets contenus (2): articles -->
       <else-if type="article-newspaper article-magazine article article-journal" match="any">
         <group delimiter=", ">
-          <date variable="issued">
-            <!-- Année de publication -->
-            <date-part name="year"/>
-            <!-- Année de publication originale entre crochets (seulement dans la bibliographie)-->
-            <text macro="original-date"/>
-          </date>
+          <text macro="date"/>
           <group>
-            <label plural="never" variable="page" form="short"/>
+            <label plural="false" variable="page" form="short"/>
             <text variable="page"/>
           </group>
         </group>
@@ -618,15 +604,11 @@
     </choose>
   </macro>
 
-  <!-- Date de publication original entre crochet -->
-  <macro name="original-date">
-    <choose>
-      <if match="any" variable="original-date">
-        <date date-parts="year" form="text" variable="original-date" prefix=" [" suffix="]">
-          <date-part name="year"/>
-        </date>
-      </if>
-    </choose>
+  <macro name="date">
+      <!-- Année de publication de l'édition citée -->
+      <date date-parts="year" form="text" variable="issued"/>
+      <!-- Année de publication originale entre crochets -->
+      <date date-parts="year" form="text" variable="original-date" prefix=" [" suffix="]"/>
   </macro>
 
   <!-- Titre de contenant -->
@@ -658,7 +640,7 @@
           </group>
         </if>
         <else-if position="ibid">
-          <text term="ibidem" text-case="capitalize-first" font-style="italic"/>
+          <text value="ibidem" text-case="capitalize-first" font-style="italic"/>
         </else-if>
         <else-if position="subsequent">
           <group delimiter=", ">
@@ -692,7 +674,7 @@
             </choose>
             <text term="cited" font-style="italic"/>
             <group>
-              <text plural="never" term="page" form="short"/>
+              <text plural="false" term="page" form="short"/>
               <text variable="locator"/>
             </group>
           </group>
