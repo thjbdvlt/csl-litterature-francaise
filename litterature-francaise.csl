@@ -674,7 +674,7 @@
             </choose>
             <text term="cited" font-style="italic"/>
             <group>
-              <text plural="never" term="page" form="short"/>
+              <text plural="false" term="page" form="short"/>
               <text variable="locator"/>
             </group>
           </group>
