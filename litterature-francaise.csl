@@ -139,7 +139,7 @@
           <name and="text" delimiter-precedes-last="never" name-as-sort-order="all">
             <name-part name="family" text-case="capitalize-first" font-variant="small-caps"/>
           </name>
-          <label form="short" plural="false"/>
+          <label form="short" plural="never"/>
         </names>
       </else-if>
     </choose>
@@ -177,7 +177,7 @@
               text-case="capitalize-first"
               font-variant="small-caps"/>
           </name>
-          <label form="short" plural="false"/>
+          <label form="short" plural="never"/>
         </names>
       </else-if>
 
@@ -201,7 +201,7 @@
               text-case="capitalize-first"
               font-variant="small-caps"/>
           </name>
-          <label plural="false"/>
+          <label plural="never"/>
         </names>
       </if>
     </choose>
@@ -210,7 +210,7 @@
   <!-- Traducteur·rice -->
   <macro name="translator">
     <names variable="translator">
-      <label form="short" plural="false"/>
+      <label form="short" plural="never"/>
       <name
         and="text"
         delimiter-precedes-last="never"
@@ -378,7 +378,7 @@
               <choose>
                 <if match="any" variable="page">
                   <group>
-                    <label plural="false" variable="page" form="short"/>
+                    <label plural="never" variable="page" form="short"/>
                     <text variable="page"/>
                   </group>
                 </if>
@@ -401,7 +401,7 @@
           <choose>
             <if match="any" variable="locator">
               <group>
-                <label plural="false" variable="page" form="short"/>
+                <label plural="never" variable="page" form="short"/>
                 <text variable="locator"/>
               </group>
             </if>
@@ -409,7 +409,7 @@
               <choose>
                 <if match="any" variable="page">
                   <group>
-                    <label plural="false" variable="page" form="short"/>
+                    <label plural="never" variable="page" form="short"/>
                     <text variable="page"/>
                   </group>
                 </if>
@@ -430,7 +430,7 @@
             <!-- Page -->
             <if variable="locator" match="any">
               <group>
-                <label plural="false" variable="page" form="short"/>
+                <label plural="never" variable="page" form="short"/>
                 <text variable="locator"/>
               </group>
             </if>
@@ -439,7 +439,7 @@
               <choose>
                 <if match="any" variable="page">
                   <group>
-                    <label plural="false" variable="page" form="short"/>
+                    <label plural="never" variable="page" form="short"/>
                     <text variable="page"/>
                   </group>
                 </if>
@@ -483,7 +483,7 @@
             <text variable="volume"/>
           </group>
           <group>
-            <label plural="false" variable="page" form="short"/>
+            <label plural="never" variable="page" form="short"/>
             <text variable="page"/>
           </group>
         </group>
@@ -494,7 +494,7 @@
         <group delimiter=", ">
           <text macro="date"/>
           <group>
-            <label plural="false" variable="page" form="short"/>
+            <label plural="never" variable="page" form="short"/>
             <text variable="page"/>
           </group>
         </group>
@@ -674,7 +674,7 @@
             </choose>
             <text term="cited" font-style="italic"/>
             <group>
-              <text plural="false" term="page" form="short"/>
+              <text plural="never" term="page" form="short"/>
               <text variable="locator"/>
             </group>
           </group>
