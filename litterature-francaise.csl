@@ -11,7 +11,7 @@
 
     <!-- Description -->
     <summary>
-      Style basé sur celui établi par Benjamin Paul pour le département de français de l'Université de Genève.
+      Style pour la littérature française.
     </summary>
 
     <!-- Styles utilisés -->
@@ -21,7 +21,8 @@
 
     <!-- Documentations de référence -->
     <link href="https://www.unine.ch/files/live/sites/ilf/files/shared/ARCHIVES/Documents/Consignes_typographiques.pdf" rel="documentation"/>
-    <link href="https://www.unine.ch/files/live/sites/ilf/files/Consignes%20pour%20le%20me%CC%81moire%20de%20Master(3).pdf" rel="documentation"/>
+    <link href="https://www.unine.ch/ilf/wp-content/uploads/sites/91/Consignes-pour-le-memoire-de-Master3-1.pdf" rel="documentation"/>
+    <link href="https://lettres.sorbonne-universite.fr/sites/default/files/media/2020-01/Conseils_methodologie_memoire_master-2.pdf" rel="documentation"/>
 
     <!-- Auteur·rices -->
     <author>
@@ -30,7 +31,7 @@
     </author>
 
     <!-- Date de mise à jour -->
-    <updated>2024-11-21T23:31:02+00:00</updated>
+    <updated>2025-01-24T23:31:02+00:00</updated>
 
     <!-- Catégorie de style -->
     <category citation-format="note"/>
@@ -38,8 +39,8 @@
     <category field="literature"/>
 
     <!-- License -->
-    <rights license="https://creativecommons.org/licenses/by-sa/4.0/">
-      This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 License
+    <rights license="https://www.gnu.org/licenses/gpl-3.0.fr.html">
+      This work is licensed under the GNU General Public License.
     </rights>
 
   </info>
@@ -651,7 +652,7 @@
               <else-if type="bill book graphic legal_case legislation motion_picture report software song thesis" match="any">
                 <text variable="title" form="short" text-case="capitalize-first" font-style="italic"/>
               </else-if>
-              <!-- Ci-dessous, il faut définir comment faire pour les "chapter" déjà cités. -->
+              <!-- TODO: Ci-dessous, il faut définir comment faire pour les "chapter" déjà cités. -->
               <!--
               <else-if type="chapter" match="all" variable="genre">
                 <text variable="title" form="short" text-case="capitalize-first" quotes="true"/>
