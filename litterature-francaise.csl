@@ -450,6 +450,36 @@
         </group>
       </else-if>
 
+      <!-- Les autres objets, par exemples ceux qui n'auraient pas de type -->
+      <else>
+        <group delimiter=", ">
+          <date variable="issued">
+            <date-part name="year"/>
+          </date>
+        </group>
+        <choose>
+          <if match="any" variable="container-title">
+          </if>
+        </choose>
+      </else>
+      <choose>
+        <if variable="locator" match="any">
+          <group>
+            <text term="page" form="short"/>
+            <text variable="locator"/>
+          </group>
+        </if>
+        <else-if variable="locator" match="none">
+          <choose>
+            <if match="any" variable="page">
+              <group>
+                <label plural="never" variable="page" form="short"/>
+                <text variable="page"/>
+              </group>
+            </if>
+          </choose>
+        </else-if>
+      </choose>
     </choose>
   </macro>
 
