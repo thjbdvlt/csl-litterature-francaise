@@ -82,11 +82,15 @@
   <!-- URL et date de consultation pour document en ligne -->
   <macro name="accessed">
     <!-- URL -->
+    <!-- <text -->
+    <!--   variable="URL" -->
+    <!--   text-decoration="none" -->
+    <!--   prefix=", &lt;" -->
+    <!--   suffix="&gt;"/> -->
     <text
       variable="URL"
-      text-decoration="none"
-      prefix=", &lt;"
-      suffix="&gt;"/>
+      text-decoration="none"/>
+    <!-- <text variable="URL" text-decoration="none"/> -->
       <!-- Date de consultation -->
       <choose>
         <if type="webpage">
@@ -648,6 +652,7 @@
   <citation>
     <layout suffix="." delimiter="&#8201;; ">
       <choose>
+
         <if position="ibid-with-locator">
           <group delimiter=", ">
             <text term="ibid" text-case="capitalize-first" font-style="italic" suffix="."/>
@@ -657,9 +662,16 @@
             </group>
           </group>
         </if>
+
+        <!-- Idem: même ouvrage, même page. -->
+        <else-if position="ibid" variable="locator">
+          <text value="idem" text-case="capitalize-first" font-style="italic"/>
+        </else-if>
+        <!-- Ibidem: même ouvrage, sans précision de page. -->
         <else-if position="ibid">
           <text value="ibidem" text-case="capitalize-first" font-style="italic"/>
         </else-if>
+
         <else-if position="subsequent">
           <group delimiter=", ">
             <choose>
@@ -689,6 +701,7 @@
               <else>
                 <text variable="title" form="short" text-case="capitalize-first" quotes="true"/>
               </else>
+
             </choose>
             <text term="cited" font-style="italic"/>
             <group>
@@ -697,6 +710,8 @@
             </group>
           </group>
         </else-if>
+
+        <!-- <else> -->
         <else>
           <group delimiter=", ">
             <text macro="author" text-case="capitalize-first"/>
@@ -713,6 +728,8 @@
             <!-- Pas d'URL en note de bas de page. Seulement dans la bibliographie. -->
           </group>
         </else>
+        <!-- </else> -->
+
       </choose>
     </layout>
   </citation>
