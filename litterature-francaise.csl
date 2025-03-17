@@ -244,7 +244,7 @@
       </if>
 
       <!-- Les titres entre guillemets pour objet contenus -->
-      <else-if type="article-journal article-newspaper article-magazine" match="any">
+      <else-if type="article-journal article-newspaper article-magazine podcast" match="any">
         <group delimiter=", ">
           <group>
             <text
@@ -425,7 +425,7 @@
       </else-if>
 
       <!-- Les objets contenus (2): articles -->
-      <else-if type="article-newspaper article-magazine article article-journal" match="any">
+      <else-if type="article-newspaper article-magazine article article-journal podcast" match="any">
         <group delimiter=", ">
           <!-- Année -->
           <date variable="issued">
@@ -512,7 +512,7 @@
       </else-if>
 
       <!-- Les objets contenus (2): articles -->
-      <else-if type="article-newspaper article-magazine article article-journal" match="any">
+      <else-if type="article-newspaper article-magazine article article-journal podcast" match="any">
         <group delimiter=", ">
           <text macro="date"/>
           <group>
@@ -543,7 +543,7 @@
           <text macro="collection-number"/>
         </group>
       </if>
-      <else-if type="article-journal article-magazine article article-newspaper" match="any">
+      <else-if type="article-journal article-magazine article article-newspaper podcast" match="any">
         <group delimiter=", ">
           <text macro="voljournal"/>
         </group>
@@ -667,6 +667,7 @@
         <else-if position="ibid" variable="locator">
           <text value="idem" text-case="capitalize-first" font-style="italic"/>
         </else-if>
+
         <!-- Ibidem: même ouvrage, sans précision de page. -->
         <else-if position="ibid">
           <text value="ibidem" text-case="capitalize-first" font-style="italic"/>
