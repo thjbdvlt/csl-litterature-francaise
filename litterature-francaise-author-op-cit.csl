@@ -61,7 +61,8 @@
       <term name="issue" form="short">n°&#8201;</term>
 
       <!-- Déjà cité -->
-      <term name="cited">op. cit.</term>
+      <term name="op-cit">op. cit.</term>
+      <term name="art-cit">art. cit.</term>
       <term name="ibid">ibid.</term>
 
       <!-- Dans un autre ouvrage -->
@@ -687,35 +688,27 @@
         <else-if position="subsequent">
           <group delimiter=", ">
             <choose>
-              <if type="book" match="all" variable="container-title">
-                <text variable="title" form="short" text-case="capitalize-first" font-style="italic"/>
-              </if>
-              <else-if type="bill book graphic legal_case legislation motion_picture report software song thesis" match="any">
-                <text variable="title" form="short" text-case="capitalize-first" font-style="italic"/>
-              </else-if>
-              <!-- TODO: Ci-dessous, il faut définir comment faire pour les "chapter" déjà cités. -->
-              <!--
-              <else-if type="chapter" match="all" variable="genre">
-                <text variable="title" form="short" text-case="capitalize-first" quotes="true"/>
-                <group>
-                  <text term="in"/>
-                  <text variable="container-title" form="short" text-case="capitalize-first" font-style="italic"/>
-                </group>
-              </else-if>
-              <else-if type="chapter" match="any">
-                <text variable="title" form="short" text-case="capitalize-first" quotes="true"/>
-                <group>
-                  <text term="in"/>
-                  <text variable="container-title" form="short" text-case="capitalize-first" font-style="italic"/>
-                </group>
-              </else-if>
-            -->
-              <else>
-                <text variable="title" form="short" text-case="capitalize-first" quotes="true"/>
-              </else>
-
+            <if match="any" variable="author editor ">
+              <text macro="author"/>
+              <choose>
+                <if match="any" disambiguate="true">
+                  <date variable="issued">
+                    <date-part name="year"/>
+                  </date>
+                </if>
+              </choose>
+            </if>
             </choose>
-            <text term="cited" font-style="italic"/>
+
+            <choose>
+              <if type="article-journal article-magazine article-newspaper article chapter" match="any">
+                <text term="art-cit"/>
+              </if>
+              <else>
+                <text term="op-cit" font-style="italic"/>
+              </else>
+            </choose>
+
             <group>
               <text plural="false" term="page" form="short"/>
               <text variable="locator"/>
