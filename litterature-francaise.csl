@@ -136,6 +136,7 @@
             <name-part name="family" text-case="capitalize-first" font-variant="small-caps"/>
           </name>
         </names>
+        <!-- TODO: {"literal": "PostgreSQL group"} -->
       </if>
 
       <!-- Sinon, un·e éditeur·rice -->

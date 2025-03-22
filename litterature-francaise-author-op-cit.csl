@@ -61,7 +61,7 @@
       <term name="issue" form="short">n°&#8201;</term>
 
       <!-- Déjà cité -->
-      <term name="op-cit">op. cit.</term>
+      <term name="cited">op. cit.</term>
       <term name="art-cit">art. cit.</term>
       <term name="ibid">ibid.</term>
 
@@ -80,22 +80,16 @@
     </terms>
   </locale>
 
+  <!-- TODO: DOI, et pas d'URL si DOI -->
   <!-- URL et date de consultation pour document en ligne -->
   <macro name="accessed">
-    <!-- URL -->
-    <!-- <text -->
-    <!--   variable="URL" -->
-    <!--   text-decoration="none" -->
-    <!--   prefix=", &lt;" -->
-    <!--   suffix="&gt;"/> -->
     <text
       variable="URL"
       text-decoration="none"/>
-    <!-- <text variable="URL" text-decoration="none"/> -->
-      <!-- Date de consultation -->
       <choose>
         <if type="webpage">
-          <group delimiter=" " font-style="normal" prefix=" (" suffix=")">
+          <!-- <group delimiter=" " font-style="normal" prefix=" (" suffix=")"> -->
+          <group delimiter=" " font-style="normal" prefix=" [" suffix="]">
             <text value="consulté le"/>
             <!-- Jour, Mois, Année -->
             <date form="text" variable="accessed">
@@ -135,6 +129,45 @@
             et-al-subsequent-min="4"
             et-al-subsequent-use-first="1">
             <name-part name="family" text-case="capitalize-first" font-variant="small-caps"/>
+          </name>
+        </names>
+      </if>
+
+      <!-- Sinon, un·e éditeur·rice -->
+      <else-if variable="editor">
+        <names variable="editor">
+          <name and="text" delimiter-precedes-last="never" name-as-sort-order="all">
+            <name-part name="family" text-case="capitalize-first" font-variant="small-caps"/>
+          </name>
+          <label form="short" plural="never"/>
+        </names>
+      </else-if>
+    </choose>
+  </macro>
+
+  <!-- Auteur·rices ou Éditeur·rices, en bas de page -->
+  <macro name="author-subsequent">
+    <choose>
+
+      <!-- S'il y a un·e auteur·rice. -->
+      <if variable="author">
+        <names variable="author">
+          <name
+            and="text"
+            delimiter-precedes-last="never"
+            sort-separator=" "
+            initialize-with=". "
+            delimiter-precedes-et-al="never"
+            delimiter-precedes-last="never"
+            et-al-min="4"
+            et-al-use-first="1"
+            et-al-subsequent-min="4"
+            et-al-subsequent-use-first="1"
+            initialize="true">
+            <name-part
+              name="family"
+              text-case="capitalize-first"
+              font-variant="small-caps"/>
           </name>
         </names>
       </if>
@@ -245,7 +278,7 @@
       </if>
 
       <!-- Les titres entre guillemets pour objet contenus -->
-      <else-if type="article-journal article-newspaper article-magazine podcast" match="any">
+      <else-if type="article-journal article-newspaper article-magazine" match="any">
         <group delimiter=", ">
           <group>
             <text
@@ -432,7 +465,7 @@
       </else-if>
 
       <!-- Les objets contenus (2): articles -->
-      <else-if type="article-newspaper article-magazine article article-journal podcast" match="any">
+      <else-if type="article-newspaper article-magazine article article-journal" match="any">
         <group delimiter=", ">
           <!-- Année -->
           <date variable="issued">
@@ -524,7 +557,7 @@
       </else-if>
 
       <!-- Les objets contenus (2): articles -->
-      <else-if type="article-newspaper article-magazine article article-journal podcast" match="any">
+      <else-if type="article-newspaper article-magazine article article-journal" match="any">
         <group delimiter=", ">
           <text macro="date"/>
           <group>
@@ -555,7 +588,7 @@
           <text macro="collection-number"/>
         </group>
       </if>
-      <else-if type="article-journal article-magazine article article-newspaper podcast" match="any">
+      <else-if type="article-journal article-magazine article article-newspaper" match="any">
         <group delimiter=", ">
           <text macro="voljournal"/>
         </group>
@@ -660,6 +693,16 @@
     </choose>
   </macro>
 
+  <macro name="date-disambiguate">
+    <choose>
+      <if disambiguate="true" match="any">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </if>
+    </choose>
+  </macro>
+
   <!-- Note de bas de page -->
   <citation>
     <layout suffix="." delimiter="&#8201;; ">
@@ -676,9 +719,9 @@
         </if>
 
         <!-- Idem: même ouvrage, même page. -->
-        <else-if position="ibid" variable="locator">
-          <text value="idem" text-case="capitalize-first" font-style="italic"/>
-        </else-if>
+        <!-- <else-if position="ibid" variable="locator"> -->
+        <!--   <text value="idem" text-case="capitalize-first" font-style="italic"/> -->
+        <!-- </else-if> -->
 
         <!-- Ibidem: même ouvrage, sans précision de page. -->
         <else-if position="ibid">
@@ -689,23 +732,28 @@
           <group delimiter=", ">
             <choose>
             <if match="any" variable="author editor ">
-              <text macro="author"/>
-              <choose>
-                <if match="any" disambiguate="true">
-                  <date variable="issued">
-                    <date-part name="year"/>
-                  </date>
-                </if>
-              </choose>
+              <text macro="author-subsequent"/>
+              <!-- ICI -->
+              <!-- <text macro="author"/> -->
+              <!-- <choose> -->
+              <!---->
+              <!--   <if disambiguate="true" match="any"> -->
+              <!--   </if> -->
+              <!---->
+              <!-- </choose> -->
             </if>
             </choose>
+            <text macro="date-disambiguate"/>
 
             <choose>
+              <!-- pourquoi ya toujours l'année..? pour les livres-->
               <if type="article-journal article-magazine article-newspaper article chapter" match="any">
                 <text term="art-cit"/>
               </if>
+
               <else>
-                <text term="op-cit" font-style="italic"/>
+                <!-- FIXME -->
+                <text term="cited" font-style="italic"/>
               </else>
             </choose>
 
